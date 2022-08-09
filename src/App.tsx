@@ -16,7 +16,6 @@ const Counter = styled.p`
 
 function App() {
   const [counter, setCounter] = useState(0);
-  const [isTransformed, setIsTransformed] = useState(false);
 
   return (
     <Root className="characters">
