@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function CharacterCard({
   name,
   imageUrl,
@@ -34,4 +36,4 @@ function CharacterCard({
   );
 }
 
-export default CharacterCard;
+export default memo(CharacterCard);
