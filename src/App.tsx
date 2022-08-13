@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import CharacterList from "./components/CharacterList";
 
@@ -16,14 +16,15 @@ const Counter = styled.p`
 
 function App() {
   const [counter, setCounter] = useState(0);
+  const onIncreaseCounter = useCallback(
+    () => setCounter((prevCounter) => prevCounter + 1),
+    []
+  );
 
   return (
     <Root className="characters">
-      <CharacterList />
+      <CharacterList onIncreaseCounter={onIncreaseCounter} />
       <Counter>{counter}</Counter>
-      <button onClick={() => setCounter((prev) => prev + 1)}>
-        Increase counter
-      </button>
     </Root>
   );
 }

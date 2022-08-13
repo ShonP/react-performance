@@ -29,7 +29,11 @@ const pickleCharacter = {
   origin: { name: "Earth (C-137)" },
 };
 
-function CharacterList() {
+function CharacterList({
+  onIncreaseCounter,
+}: {
+  onIncreaseCounter: () => void;
+}) {
   const [isPickle, setIsPickle] = useState(false);
   const togglePickle = useCallback(
     () => setIsPickle((prevIsPickle) => !prevIsPickle),
@@ -40,19 +44,22 @@ function CharacterList() {
 
   console.log("Im rerendering CharacterList");
   return (
-    <ul className="character-list">
-      {modifiedCharactersData.map((c: any) => (
-        <li key={c.id} className="character-list__item">
-          <CharacterCard
-            imageUrl={c.image}
-            name={c.name}
-            locationName={c.location.name}
-            originLocation={c.origin.name}
-            togglePickle={togglePickle}
-          />
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul className="character-list">
+        {modifiedCharactersData.map((c: any) => (
+          <li key={c.id} className="character-list__item">
+            <CharacterCard
+              imageUrl={c.image}
+              name={c.name}
+              locationName={c.location.name}
+              originLocation={c.origin.name}
+              togglePickle={togglePickle}
+            />
+          </li>
+        ))}
+      </ul>
+      <button onClick={onIncreaseCounter}>Increase counter</button>
+    </div>
   );
 }
 
