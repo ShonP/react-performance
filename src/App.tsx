@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import styled from "styled-components";
 import CharacterList from "./components/CharacterList";
 
@@ -14,16 +14,30 @@ const Counter = styled.p`
   color: white;
 `;
 
+const Child = ({ count }: { count: number }) => {
+  console.log("child rerender");
+
+  return <div>{count}</div>;
+};
+
+const MemoChild = memo(Child);
+
 function App() {
   const [counter, setCounter] = useState(0);
-  const [isTransformed, setIsTransformed] = useState(false);
+  const [isBackgroundRed, setIsBackgroundRed] = useState(false);
 
   return (
-    <Root className="characters">
-      <CharacterList />
-      <Counter>{counter}</Counter>
-      <button onClick={() => setCounter((prev) => prev + 1)}>
+    <Root style={{ background: isBackgroundRed ? "red" : "white" }}>
+      <Child count={counter} />
+      <button onClick={() => setCounter((prevCounter) => prevCounter + 1)}>
         Increase counter
+      </button>
+      <button
+        onClick={() =>
+          setIsBackgroundRed((prevIsBackgroundRed) => !prevIsBackgroundRed)
+        }
+      >
+        Toggle background
       </button>
     </Root>
   );
