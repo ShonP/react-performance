@@ -13,10 +13,6 @@ const Root = styled.div`
   flex: 1;
 `;
 
-const Counter = styled.p`
-  color: white;
-`;
-
 const charactersData = [
   {
     id: 1,
@@ -49,19 +45,17 @@ function App() {
     []
   );
 
-  const characters = charactersData.slice(counter);
+  const characters = useMemo(() => charactersData.slice(counter), [counter]);
 
   return (
     <Root
       className="characters"
-      style={{ background: isBackgroundRed ? "#DC143C" : "white" }}
+      style={{ background: isBackgroundRed ? "#DC143C" : "rgb(36, 40, 47)" }}
     >
       <CharacterList
         onRemoveCharacter={onRemoveCharacter}
         characters={characters}
       />
-      <Counter>{counter}</Counter>
-
       <button
         onClick={() =>
           setIsBackgroundRed((prevIsBackgroundRed) => !prevIsBackgroundRed)
