@@ -39,4 +39,4 @@ function CharacterList() {
   );
 }
 
-export default CharacterList;
+export default memo(CharacterList);
