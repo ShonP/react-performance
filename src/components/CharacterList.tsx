@@ -1,20 +1,18 @@
-import { memo, useCallback, useState } from "react";
+import { memo } from "react";
 import CharacterCard from "./CharacterCard";
 
 function CharacterList({
-  onIncreaseCounter,
+  onRemoveCharacter,
   characters,
 }: {
-  onIncreaseCounter: () => void;
+  onRemoveCharacter: () => void;
   characters: any[];
 }) {
-  const [isPickle, setIsPickle] = useState(false);
-  const togglePickle = useCallback(
-    () => setIsPickle((prevIsPickle) => !prevIsPickle),
-    []
-  );
-
   console.log("Im rerendering CharacterList");
+  if (!characters.length) {
+    return null;
+  }
+
   return (
     <div>
       <ul className="character-list">
@@ -25,12 +23,11 @@ function CharacterList({
               name={c.name}
               locationName={c.location.name}
               originLocation={c.origin.name}
-              togglePickle={togglePickle}
             />
           </li>
         ))}
       </ul>
-      <button onClick={onIncreaseCounter}>Increase counter</button>
+      <button onClick={onRemoveCharacter}>Remove character</button>
     </div>
   );
 }

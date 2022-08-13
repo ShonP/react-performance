@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import CharacterList from "./components/CharacterList";
 import mortyImg from "./assets/mortyImg.jpeg";
@@ -43,18 +43,32 @@ const charactersData = [
 
 function App() {
   const [counter, setCounter] = useState(0);
-  const onIncreaseCounter = useCallback(
+  const [isBackgroundRed, setIsBackgroundRed] = useState(false);
+  const onRemoveCharacter = useCallback(
     () => setCounter((prevCounter) => prevCounter + 1),
     []
   );
 
+  const characters = charactersData.slice(counter);
+
   return (
-    <Root className="characters">
+    <Root
+      className="characters"
+      style={{ background: isBackgroundRed ? "#DC143C" : "white" }}
+    >
       <CharacterList
-        onIncreaseCounter={onIncreaseCounter}
-        characters={charactersData}
+        onRemoveCharacter={onRemoveCharacter}
+        characters={characters}
       />
       <Counter>{counter}</Counter>
+
+      <button
+        onClick={() =>
+          setIsBackgroundRed((prevIsBackgroundRed) => !prevIsBackgroundRed)
+        }
+      >
+        Toggle background
+      </button>
     </Root>
   );
 }
