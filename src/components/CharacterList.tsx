@@ -29,26 +29,32 @@ const pickleCharacter = {
   origin: { name: "Earth (C-137)" },
 };
 
+interface IHightlightedDict {
+  [key: number]: boolean;
+}
+
 function CharacterList() {
-  const [isPickle, setIsPickle] = useState(false);
-  const togglePickle = useCallback(
-    () => setIsPickle((prevIsPickle) => !prevIsPickle),
-    []
+  const [highlightedDict, setIsHighlightedDict] = useState<IHightlightedDict>(
+    {}
   );
+  const toggleHighlight = (id: number) =>
+    setIsHighlightedDict((prevHighlighted) => ({
+      ...prevHighlighted,
+      [id]: !prevHighlighted[id],
+    }));
 
-  const modifiedCharactersData = [...charactersData, pickleCharacter];
-
-  console.log("Im rerendering CharacterList");
   return (
     <ul className="character-list">
-      {modifiedCharactersData.map((c: any) => (
+      {charactersData.map((c: any) => (
         <li key={c.id} className="character-list__item">
           <CharacterCard
+            id={c.id}
             imageUrl={c.image}
             name={c.name}
             locationName={c.location.name}
             originLocation={c.origin.name}
-            togglePickle={togglePickle}
+            toggleHighlight={toggleHighlight}
+            isHighlighted={highlightedDict[c.id]}
           />
         </li>
       ))}

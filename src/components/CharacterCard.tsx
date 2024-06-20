@@ -1,13 +1,24 @@
 import { memo } from "react";
 
 function CharacterCard({
+  id,
   name,
   imageUrl,
   locationName = "Unknown",
   originLocation,
-}: any) {
+  isHighlighted,
+  toggleHighlight,
+}: {
+  id: number;
+  name: string;
+  imageUrl: string;
+  locationName: string;
+  originLocation: string;
+  isHighlighted: boolean;
+  toggleHighlight: (id: number) => void;
+}) {
   return (
-    <div className="character-card">
+    <div className={`character-card ${isHighlighted ? "highlight" : ""}`}>
       <img
         src={imageUrl}
         alt="Character Avatar"
@@ -30,6 +41,13 @@ function CharacterCard({
           <p className="character-card__origin-location-name character-card__text">
             {originLocation}
           </p>
+          <button
+            onClick={() => {
+              toggleHighlight(id);
+            }}
+          >
+            highlight
+          </button>
         </div>
       </div>
     </div>
